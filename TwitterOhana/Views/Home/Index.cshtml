@@ -1,0 +1,16 @@
+﻿@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@using (Html.BeginForm("TwitterAuth", "Home", FormMethod.Get))
+{
+    <head>
+        <link href="~/css/main.css" rel="stylesheet">
+        <link href="~/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    </head> 
+    
+    <h1 class="cover-heading">Twitter Ohana!</h1>
+    <p class="lead">Your favourite way of interacting with your tweets</p>
+    <button class="btn btn-info" type="submit" id="twitter"><i class="fa fa-twitter fa-fw"></i>LogIn</button>
+}

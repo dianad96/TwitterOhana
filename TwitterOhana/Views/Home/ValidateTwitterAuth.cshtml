@@ -1,0 +1,77 @@
+﻿@using System.Collections.Generic
+@using Microsoft.AspNetCore.Mvc.Rendering
+@using Tweetinvi.Models
+
+@{
+    ViewData["Title"] = "News Feed";
+}
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="~/css/landing-page.css" rel="stylesheet">
+
+    <link href="~/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+
+</head>
+
+<div class="intro-header">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Welcome, @ViewData["Name"]! </h1>
+                <h3>This is your Twitter Ohana</h3>
+                <hr class="intro-divider">
+                <ul class="list-inline intro-social-buttons">
+                    <li>
+                        <a href="" class="btn btn-default btn-lg"><i class="fa fa-user fa-fw"></i> <span class="network-name">Followers: @ViewData["Number_of_followers"]</span></a>
+                    </li>
+                    <li>
+                        <a href="" class="btn btn-default btn-lg"><i class="fa fa-thumbs-up fa-fw"></i> <span class="network-name">Likes: @ViewData["Number_of_likes"]</span></a>
+                    </li>
+                    <li>
+                        <a href="#" class="btn btn-default btn-lg"><i class="fa fa-twitter fa-fw"></i> <span class="network-name">tweets: @ViewData["Number_of_tweets"]</span></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm("sendTweet", "Home", FormMethod.Get))
+{
+    <br/><br/>
+    <div class="col-lg-6">
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit" id="twitter">Submit!</button>
+            </span>
+            <input type="text"  name="NewTweet" class="form-control" placeholder="Write New Tweet...">
+        </div>
+    </div>
+}
+
+@using (Html.BeginForm("searchTweet", "Home", FormMethod.Get))
+{
+    <br/><br/>
+    <div class="col-lg-6">
+        <div class="input-group">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="submit" id="twitter">Search!</button>
+            </span>
+            <input type="text"  name="SearchTweet" class="form-control" placeholder="Search a Tweet...">
+        </div>
+    </div>
+}
+
+<br/><br/>
+@using (Html.BeginForm("getUserTweets", "Home", FormMethod.Get))
+{
+    <button class="btn btn-info" type="submit" id="twitter"><i class="fa fa-twitter fa-fw"></i>See your tweets</button>
+}

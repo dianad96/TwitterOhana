@@ -1,0 +1,46 @@
+﻿<br/><br/>
+@using Tweetinvi.Models
+@model  IEnumerable<TwitterOhana.Models.Tweet>
+
+@for (int i=1; i<Model.Count()/2; i++)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-1">
+                <div class="thumbnail">
+                    <img class="img-responsive user-photo" src=@Model.ElementAt(i).UserProfileImage>
+                </div><!-- /thumbnail -->
+            </div><!-- /col-sm-1 -->
+
+            <div class="col-sm-5">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong>@Model.ElementAt(i).ScreenName </strong> <span class="text-muted"> (@Model.ElementAt(i).UserName) tweeted on @Model.ElementAt(i).CreatedAt</span>
+                    </div>
+                    <div class="panel-body">
+                        @Model.ElementAt(i++).Text
+                    </div><!-- /panel-body -->
+                </div><!-- /panel panel-default -->
+            </div><!-- /col-sm-5 -->
+
+            <div class="col-sm-1">
+                <div class="thumbnail">
+                    <img class="img-responsive user-photo" src=@Model.ElementAt(i).UserProfileImage>
+                </div><!-- /thumbnail -->
+            </div><!-- /col-sm-1 -->
+        
+            <div class="col-sm-5">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <strong>@Model.ElementAt(i).ScreenName</strong> <span class="text-muted"> (@Model.ElementAt(i).UserName)  tweeted on @Model.ElementAt(i).CreatedAt</span>
+                    </div>
+                    <div class="panel-body">
+                        @Model.ElementAt(i).Text
+                    </div><!-- /panel-body -->
+                </div><!-- /panel panel-default -->
+            </div><!-- /col-sm-5 -->
+        </div><!-- /row -->
+
+    </div><!-- /container -->
+}
+
