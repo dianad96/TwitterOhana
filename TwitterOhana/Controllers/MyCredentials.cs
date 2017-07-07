@@ -12,6 +12,7 @@ namespace TwitterOhana.Controllers
         public static string ACCESS_TOKEN_SECRET = "ACCESS_TOKEN_SECRET";
         public static String redirectURL = "http://localhost:2559/Home/ValidateTwitterAuth";
 
+        public static Tweetinvi.Models.ITwitterCredentials myCreds;
         public static ITwitterCredentials GenerateCredentials()
         {
             return new TwitterCredentials(CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_TOKEN_SECRET);

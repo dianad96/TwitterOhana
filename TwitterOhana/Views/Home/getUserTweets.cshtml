@@ -4,6 +4,7 @@
 
 <head>
     <link href="~/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="~/css/button.css" rel="stylesheet">
 </head>
 <br/><br/>
 @for (int i = 0; i < Model.Count() / 2; i++)
@@ -19,11 +20,13 @@
             <div class="col-sm-5">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <strong>@Model.ElementAt(i).ScreenName </strong> <span class="text-muted"> (@Model.ElementAt(i).UserName) tweeted on @Model.ElementAt(i).CreatedAt</span>
-                        @using (Html.BeginForm("deleteTweet", "Home", FormMethod.Get))
-                        {
-                            <button type="submit" id="twitter"><i class="fa fa-trash-o"></i></button>   
-                        }
+                            @using (Html.BeginForm("deleteTweet", "Home", FormMethod.Get))
+                            {
+                                <strong>@Model.ElementAt(i).ScreenName </strong> <span class="text-muted"> (@Model.ElementAt(i).UserName) tweeted on @Model.ElementAt(i).CreatedAt 
+                                    <button name="Id" type="submit" value=@Model.ElementAt(i).Id class="fabutton">
+                                        <i class="fa fa-trash-o" aria-hidden="true"></i>
+                                    </button></span>
+                            }
                     </div>
                     <div class="panel-body">
                         @Model.ElementAt(i++).Text
@@ -40,8 +43,13 @@
             <div class="col-sm-5">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <strong>@Model.ElementAt(i).ScreenName</strong> <span class="text-muted"> (@Model.ElementAt(i).UserName)  tweeted on @Model.ElementAt(i).CreatedAt</span>
-                        <i class="fa-trash-o"></i>
+                        @using (Html.BeginForm("deleteTweet", "Home", FormMethod.Get))
+                        {
+                            <strong>@Model.ElementAt(i).ScreenName </strong> <span class="text-muted"> (@Model.ElementAt(i).UserName) tweeted on @Model.ElementAt(i).CreatedAt 
+                                <button name="Id" type="submit" value=@Model.ElementAt(i).Id class="fabutton">
+                                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                               </button></span>
+                        }
                     </div>
                     <div class="panel-body">
                         @Model.ElementAt(i).Text

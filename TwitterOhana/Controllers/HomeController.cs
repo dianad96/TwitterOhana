@@ -22,23 +22,17 @@ namespace TwitterOhana.Controllers
 
             _authenticationContext = AuthFlow.InitAuthentication(appCreds, MyCredentials.redirectURL);
 
-            HttpContext.Session.SetString("AuthorizationKey", _authenticationContext.Token.AuthorizationKey);
-            HttpContext.Session.SetString("AuthorizationSecret", _authenticationContext.Token.AuthorizationSecret);
-
             return new RedirectResult(_authenticationContext.AuthorizationURL);
         }
 
         public ActionResult ValidateTwitterAuth()
         {
-            HttpContext.Session.SetString("verifierCode", Request.Query.ElementAt(2).Value);
-            HttpContext.Session.SetString("verifierSecret", Request.Query.ElementAt(1).Value);
-            HttpContext.Session.SetString("authorizationId", Request.Query.ElementAt(0).Value);
-
-            if (!HttpContext.Session.GetString("verifierCode").IsNullOrEmpty())
+            if (!Request.Query.ElementAt(2).Value.IsNullOrEmpty())
             {
-                var userCreds = AuthFlow.CreateCredentialsFromVerifierCode(HttpContext.Session.GetString("verifierCode"), HttpContext.Session.GetString("authorizationId"));
+                var userCreds = AuthFlow.CreateCredentialsFromVerifierCode(Request.Query.ElementAt(2).Value, Request.Query.ElementAt(0).Value);
+                MyCredentials.myCreds = userCreds;
                 var user = Tweetinvi.User.GetAuthenticatedUser(userCreds);
-
+                   
                 ViewData["Name"] = user.Name;
                 ViewData["Number_of_followers"] = user.FollowersCount;
                 ViewData["Number_of_likes"] = user.ListedCount;
@@ -49,12 +43,8 @@ namespace TwitterOhana.Controllers
 
         public String sendTweet(String NewTweet)
         {
-
-            var userCreds = AuthFlow.CreateCredentialsFromVerifierCode(HttpContext.Session.GetString("verifierCode"), HttpContext.Session.GetString("authorizationId"));
-            var user = Tweetinvi.User.GetAuthenticatedUser(userCreds);
-
+            var user = Tweetinvi.User.GetAuthenticatedUser(MyCredentials.myCreds);
             var tweet = user.PublishTweet(NewTweet);
-
             if (!tweet.Text.IsNullOrEmpty())
                 return "Sent!";
             else
@@ -63,9 +53,7 @@ namespace TwitterOhana.Controllers
 
         public IActionResult searchTweet(String SearchTweet)
         {
-            var userCreds = AuthFlow.CreateCredentialsFromVerifierCode(HttpContext.Session.GetString("verifierCode"), HttpContext.Session.GetString("authorizationId"));
-
-            var user = Tweetinvi.User.GetAuthenticatedUser(userCreds);
+            var user = Tweetinvi.User.GetAuthenticatedUser(MyCredentials.myCreds);
             var matchingTweets = Search.SearchTweets(SearchTweet);
 
             var model = new List<TwitterOhana.Models.Tweet>();
@@ -90,8 +78,7 @@ namespace TwitterOhana.Controllers
 
         public IActionResult getUserTweets()
         {
-            var userCreds = AuthFlow.CreateCredentialsFromVerifierCode(HttpContext.Session.GetString("verifierCode"), HttpContext.Session.GetString("authorizationId"));
-            var user = Tweetinvi.User.GetAuthenticatedUser(userCreds);
+            var user = Tweetinvi.User.GetAuthenticatedUser(MyCredentials.myCreds);
             var userTweets = user.GetHomeTimeline();
 
             var model = new List<TwitterOhana.Models.Tweet>();
@@ -106,16 +93,29 @@ namespace TwitterOhana.Controllers
                     UserProfileImage = e.Current.CreatedBy.ProfileImageUrl,
                     UserName = e.Current.CreatedBy.Name,
                     ScreenName = e.Current.CreatedBy.ScreenName,
-                    Id = e.Current.Id
+                    Id = e.Current.Id,
+                    UserTweet = e.Current
             });
             }
             return View(model);
         }
 
-        public String deleteTweet()
+        public String deleteTweet(long Id)
         {
+            var user = Tweetinvi.User.GetAuthenticatedUser(MyCredentials.myCreds);
 
-            return "deleted";
+            var success = Auth.ExecuteOperationWithCredentials(MyCredentials.myCreds, () =>
+            {
+                ITweet toDelete = Tweetinvi.Tweet.GetTweet(Id);
+                var tweet = toDelete.Destroy();
+
+                return tweet;
+            });
+
+            if (success)
+                return "deleted";
+            else
+                return "fail";
         }
         public IActionResult Index()
         {

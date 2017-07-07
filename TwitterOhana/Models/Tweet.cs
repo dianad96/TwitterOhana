@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Tweetinvi.Models;
 
 namespace TwitterOhana.Models
 {
@@ -13,5 +14,6 @@ namespace TwitterOhana.Models
         public DateTime CreatedAt { get; set; }
         public String UserProfileImage { get; set; }
         public long Id { get; set; }
+        public ITweet UserTweet { get; set; }
     }
 }
