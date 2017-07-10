@@ -1872,6 +1872,36 @@
           }
         }
       },
+      "StructureMap/4.5.1": {
+        "type": "package",
+        "dependencies": {
+          "NETStandard.Library": "1.6.0",
+          "System.Collections.Concurrent": "4.0.12",
+          "System.Reflection.Emit.Lightweight": "4.3.0",
+          "System.Reflection.TypeExtensions": "4.1.0",
+          "System.Runtime.Loader": "4.0.0"
+        },
+        "compile": {
+          "lib/netstandard1.5/StructureMap.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.5/StructureMap.dll": {}
+        }
+      },
+      "StructureMap.Microsoft.DependencyInjection/1.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "1.1.1",
+          "NETStandard.Library": "1.6.1",
+          "StructureMap": "4.5.0"
+        },
+        "compile": {
+          "lib/netstandard1.3/StructureMap.Microsoft.DependencyInjection.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/StructureMap.Microsoft.DependencyInjection.dll": {}
+        }
+      },
       "System.AppContext/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -5454,6 +5484,34 @@
         "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.4.3.1.nupkg.sha512",
         "runtime.ubuntu.16.10-x64.runtime.native.system.security.cryptography.openssl.nuspec",
         "runtimes/ubuntu.16.10-x64/native/System.Security.Cryptography.Native.OpenSsl.so"
+      ]
+    },
+    "StructureMap/4.5.1": {
+      "sha512": "5h83KuvdkMtDllLfGZdgOPHF5erbF9MOeX2S6mCJOpXYJ9RGiZl0vnrzS+Cs0rs7wLPAWig9ENBPFbjPpUdcXA==",
+      "type": "package",
+      "path": "structuremap/4.5.1",
+      "files": [
+        "lib/net45/StructureMap.dll",
+        "lib/net45/StructureMap.xml",
+        "lib/netstandard1.3/StructureMap.dll",
+        "lib/netstandard1.3/StructureMap.xml",
+        "lib/netstandard1.5/StructureMap.dll",
+        "lib/netstandard1.5/StructureMap.xml",
+        "structuremap.4.5.1.nupkg.sha512",
+        "structuremap.nuspec"
+      ]
+    },
+    "StructureMap.Microsoft.DependencyInjection/1.3.1": {
+      "sha512": "60cb/bxsBVh1ry2Z6QfESzAW4GBLPYNqfQLDWt72CACMFn84q48gH4I5RZs18mk4hoK9HI7sEQs+UcMbH1k2DQ==",
+      "type": "package",
+      "path": "structuremap.microsoft.dependencyinjection/1.3.1",
+      "files": [
+        "lib/net451/StructureMap.Microsoft.DependencyInjection.dll",
+        "lib/net451/StructureMap.Microsoft.DependencyInjection.xml",
+        "lib/netstandard1.3/StructureMap.Microsoft.DependencyInjection.dll",
+        "lib/netstandard1.3/StructureMap.Microsoft.DependencyInjection.xml",
+        "structuremap.microsoft.dependencyinjection.1.3.1.nupkg.sha512",
+        "structuremap.microsoft.dependencyinjection.nuspec"
       ]
     },
     "System.AppContext/4.3.0": {
@@ -10046,6 +10104,8 @@
       "Microsoft.Extensions.Logging.Debug >= 1.1.2",
       "Microsoft.NETCore.App >= 1.1.2",
       "Microsoft.VisualStudio.Web.BrowserLink >= 1.1.2",
+      "StructureMap >= 4.5.1",
+      "StructureMap.Microsoft.DependencyInjection >= 1.3.1",
       "TweetinviAPI >= 2.0.0"
     ]
   },
@@ -10104,6 +10164,14 @@
           "Microsoft.AspNetCore.Session": {
             "target": "Package",
             "version": "1.1.2"
+          },
+          "StructureMap.Microsoft.DependencyInjection": {
+            "target": "Package",
+            "version": "1.3.1"
+          },
+          "StructureMap": {
+            "target": "Package",
+            "version": "4.5.1"
           },
           "Microsoft.AspNetCore.StaticFiles": {
             "target": "Package",

@@ -1,0 +1,72 @@
+﻿@import 'https://fonts.googleapis.com/css?family=Muli';
+
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+body{
+    background: #DBB67C;
+    font-family: 'Muli';
+}
+
+.card{
+    margin-left: 40px;
+    margin-top: 20px;
+    width: 350px;
+    transform: translate(-50%, -50%);
+    flex-wrap: wrap;
+    border-radius: 10px;
+    box-shadow: 0 27px 55px 0 rgba(0, 0, 0, 0.3), 0 17px 17px 0 rgba(0, 0, 0, 0.15);
+}
+
+
+.card .tumb{
+    width: 350px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.card .info {
+    display: flex;
+    flex: 1 100%;
+    background: #e4e4e4;
+    height: 30%;
+    border-top: 5px solid #e4e4e4;
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    color: #444;
+}
+.card .info .a{
+}
+.card .info .b{
+}
+.card .info .c{
+}
+.card .btn{
+    font-family: Poiret One;
+    display: flex;
+    flex: 1 100%;
+    background: #e4e4e4;
+    height: 20%;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    justify-content: space-around;
+    letter-spacing: 1px;
+}
+.card .btn .follow{
+    background: #FCBB58;
+    width:150px;
+    height:35px;
+    line-height: 35px;
+    text-align: center;
+    border-radius: 5px;
+    color: #fff;
+    transition: all .25s;
+}
+.card .btn .follow:hover{
+    cursor: pointer;
+    background: #e39d31;
+}

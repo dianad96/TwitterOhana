@@ -12,14 +12,12 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-1">
-                <div class="thumbnail">
-                    <img class="img-responsive user-photo" src=@Model.ElementAt(i).UserProfileImage>
-                </div><!-- /thumbnail -->
+                <img class="card img-responsive user-photo" src=@Model.ElementAt(i).UserProfileImage>
             </div><!-- /col-sm-1 -->
 
             <div class="col-sm-5">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
+                <div class="card panel-default">
+                    <div class="top-card panel-heading">
                             @using (Html.BeginForm("deleteTweet", "Home", FormMethod.Get))
                             {
                                 <strong>@Model.ElementAt(i).ScreenName </strong> <span class="text-muted"> (@Model.ElementAt(i).UserName) tweeted on @Model.ElementAt(i).CreatedAt 
@@ -35,14 +33,12 @@
             </div><!-- /col-sm-5 -->
 
             <div class="col-sm-1">
-                <div class="thumbnail">
-                    <img class="img-responsive user-photo" src=@Model.ElementAt(i).UserProfileImage>
-                </div><!-- /thumbnail -->
+                 <img class="card img-responsive user-photo" src=@Model.ElementAt(i).UserProfileImage>
             </div><!-- /col-sm-1 -->
 
             <div class="col-sm-5">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
+                <div class="card panel panel-default">
+                    <div class="top-card panel-heading">
                         @using (Html.BeginForm("deleteTweet", "Home", FormMethod.Get))
                         {
                             <strong>@Model.ElementAt(i).ScreenName </strong> <span class="text-muted"> (@Model.ElementAt(i).UserName) tweeted on @Model.ElementAt(i).CreatedAt 

@@ -1,122 +1,66 @@
 ﻿using System;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc;
-using Tweetinvi;
-using Tweetinvi.Core.Extensions;
-using Tweetinvi.Models;
-using TwitterOhana.Models;
-using System.Collections.Generic;
-using Microsoft.AspNetCore.Http;
+using TwitterOhana.Services;
 
 namespace TwitterOhana.Controllers
 {
 
     public class HomeController : Controller
     {
-        private IAuthenticationContext _authenticationContext;
-        
+        private readonly ITweetinviService _tweetinviService;
+
+        public HomeController(ITweetinviService tweetinviService)
+        {
+            _tweetinviService = tweetinviService;
+        }
+
         [HttpGet]
         public ActionResult TwitterAuth()
         {
-            var appCreds = new ConsumerCredentials(MyCredentials.CONSUMER_KEY, MyCredentials.CONSUMER_SECRET);
-
-            _authenticationContext = AuthFlow.InitAuthentication(appCreds, MyCredentials.redirectURL);
-
-            return new RedirectResult(_authenticationContext.AuthorizationURL);
+            return new RedirectResult(_tweetinviService.TwitterAuth());
         }
 
         public ActionResult ValidateTwitterAuth()
         {
-            if (!Request.Query.ElementAt(2).Value.IsNullOrEmpty())
-            {
-                var userCreds = AuthFlow.CreateCredentialsFromVerifierCode(Request.Query.ElementAt(2).Value, Request.Query.ElementAt(0).Value);
-                MyCredentials.myCreds = userCreds;
-                var user = Tweetinvi.User.GetAuthenticatedUser(userCreds);
-                   
-                ViewData["Name"] = user.Name;
-                ViewData["Number_of_followers"] = user.FollowersCount;
-                ViewData["Number_of_likes"] = user.ListedCount;
-                ViewData["Number_of_tweets"] = user.StatusesCount;
-            }
+            var user = _tweetinviService.ValideTwitterAuth(Request);
+            ViewData["Name"] = user.Name;
+            ViewData["Number_of_followers"] = user.FollowersCount;
+            ViewData["Number_of_likes"] = user.FavouritesCount;
+            ViewData["Number_of_tweets"] = user.StatusesCount;
+          
             return View();
         }
 
-        public String sendTweet(String NewTweet)
+        public string SendTweet(String newTweet)
         {
-            var user = Tweetinvi.User.GetAuthenticatedUser(MyCredentials.myCreds);
-            var tweet = user.PublishTweet(NewTweet);
-            if (!tweet.Text.IsNullOrEmpty())
-                return "Sent!";
-            else
-                return "An error has occured!";
+            var result = _tweetinviService.SendTweet(newTweet);
+            return result;
         }
 
-        public IActionResult searchTweet(String SearchTweet)
+        public IActionResult SearchTweet(String searchTweet)
         {
-            var user = Tweetinvi.User.GetAuthenticatedUser(MyCredentials.myCreds);
-            var matchingTweets = Search.SearchTweets(SearchTweet);
-
-            var model = new List<TwitterOhana.Models.Tweet>();
-
-            IEnumerator<Tweetinvi.Models.ITweet> e = matchingTweets.GetEnumerator();
-            while (e.MoveNext())
-            {
-                model.Add(new TwitterOhana.Models.Tweet
-                {
-                    Text=e.Current.Text,
-                    UserName = e.Current.CreatedBy.Name,
-                    ScreenName = e.Current.CreatedBy.ScreenName,
-                    CreatedAt = e.Current.CreatedAt,
-                    UserProfileImage = e.Current.CreatedBy.ProfileImageUrl
-                });
-              
-                String value = e.Current.Text;
-                Console.WriteLine(value);
-            }
+            var model = _tweetinviService.SearchTweet(searchTweet);
             return View(model);
         }
 
-        public IActionResult getUserTweets()
+        public IActionResult GetUserTweets()
         {
-            var user = Tweetinvi.User.GetAuthenticatedUser(MyCredentials.myCreds);
-            var userTweets = user.GetHomeTimeline();
-
-            var model = new List<TwitterOhana.Models.Tweet>();
-
-            IEnumerator<Tweetinvi.Models.ITweet> e = userTweets.GetEnumerator();
-            while (e.MoveNext())
-            {
-                model.Add(new TwitterOhana.Models.Tweet
-                {
-                    Text = e.Current.Text,
-                    CreatedAt = e.Current.CreatedAt,
-                    UserProfileImage = e.Current.CreatedBy.ProfileImageUrl,
-                    UserName = e.Current.CreatedBy.Name,
-                    ScreenName = e.Current.CreatedBy.ScreenName,
-                    Id = e.Current.Id,
-                    UserTweet = e.Current
-            });
-            }
+            var model = _tweetinviService.GetUserTweets();
             return View(model);
         }
 
-        public String deleteTweet(long Id)
+        public String DeleteTweet(long id)
         {
-            var user = Tweetinvi.User.GetAuthenticatedUser(MyCredentials.myCreds);
-
-            var success = Auth.ExecuteOperationWithCredentials(MyCredentials.myCreds, () =>
-            {
-                ITweet toDelete = Tweetinvi.Tweet.GetTweet(Id);
-                var tweet = toDelete.Destroy();
-
-                return tweet;
-            });
-
-            if (success)
-                return "deleted";
-            else
-                return "fail";
+            var result = _tweetinviService.DeleteTweet(id);
+            return result;
         }
+
+        public IActionResult GetUserFollowers()
+        {
+            var model = _tweetinviService.GetUserFollowers();
+            return View(model);
+        }
+
         public IActionResult Index()
         {
             return View();
