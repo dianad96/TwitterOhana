@@ -1,9 +1,9 @@
-c:\users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana\bin\Debug\netcoreapp1.1\TwitterOhana.deps.json
-c:\users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana\bin\Debug\netcoreapp1.1\TwitterOhana.runtimeconfig.json
-c:\users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana\bin\Debug\netcoreapp1.1\TwitterOhana.runtimeconfig.dev.json
-c:\users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana\bin\Debug\netcoreapp1.1\TwitterOhana.dll
-c:\users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana\bin\Debug\netcoreapp1.1\TwitterOhana.pdb
-c:\users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana\obj\Debug\netcoreapp1.1\TwitterOhana.AssemblyInfo.cs
-c:\users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana\obj\Debug\netcoreapp1.1\TwitterOhana.dll
-c:\users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana\obj\Debug\netcoreapp1.1\TwitterOhana.pdb
+C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana\bin\Debug\netcoreapp1.1\TwitterOhana.deps.json
+C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana\bin\Debug\netcoreapp1.1\TwitterOhana.runtimeconfig.json
+C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana\bin\Debug\netcoreapp1.1\TwitterOhana.runtimeconfig.dev.json
+C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana\bin\Debug\netcoreapp1.1\TwitterOhana.dll
+C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana\bin\Debug\netcoreapp1.1\TwitterOhana.pdb
 C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana\obj\Debug\netcoreapp1.1\TwitterOhana.csprojResolveAssemblyReference.cache
+C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana\obj\Debug\netcoreapp1.1\TwitterOhana.AssemblyInfo.cs
+C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana\obj\Debug\netcoreapp1.1\TwitterOhana.dll
+C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana\obj\Debug\netcoreapp1.1\TwitterOhana.pdb

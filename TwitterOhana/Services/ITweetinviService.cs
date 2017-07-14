@@ -8,11 +8,12 @@ namespace TwitterOhana.Services
     public interface ITweetinviService
     {
         string TwitterAuth();
-        IAuthenticatedUser ValideTwitterAuth(HttpRequest request);
+        Models.User ValidateTwitterAuth(string verifierCode, string authorizationId);
         string SendTweet(string newTweet);
         List<Models.Tweet> SearchTweet(string searchTweet);
         List<Models.Tweet> GetUserTweets();
         List<Models.User> GetUserFollowers();
         string DeleteTweet(long id);
+        List<Models.Trend> GetTrends();
     }
 }

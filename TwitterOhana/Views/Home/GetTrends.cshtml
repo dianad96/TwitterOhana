@@ -1,0 +1,60 @@
+﻿@model  IEnumerable<TwitterOhana.Models.Trend>
+
+<head>
+    <link href="~/css/trends.css" rel="stylesheet">
+    <link href="~/css/button.css" rel="stylesheet">
+
+</head>
+
+<br/><br/><br /><br/>
+@for (int i = 0; i < Model.Count(); i++)
+{
+    <div class="list-group">
+        <a href="#" class="card list-group-item list-group-item-action flex-column align-items-start">
+            <div class="">
+                <h5 class="mb-1">Trending: @Model.ElementAt(i).Name</h5>
+                @if (@Model.ElementAt(i).TweetVolume != null)
+                {
+                    <small>Number of tweets: @Model.ElementAt(i).TweetVolume</small>    
+                }
+            </div>
+            <br/><p class="mb-1">Latest tweets</p>
+
+            @for (int j = 0; j < 8; j++)
+            {
+                <div class="row">
+                    <div class="col-sm-1">
+                        <img class="card img-responsive user-photo" src=@Model.ElementAt(i).Tweet.ElementAt(j).UserProfileImage>
+                    </div><!-- /col-sm-1 -->
+
+                    <div class="col-sm-5">
+                        <div class="card panel-default">
+                            <div class="top-card panel-heading">
+                                <strong>@Model.ElementAt(i).Tweet.ElementAt(j).ScreenName </strong> <span class="text-muted"> (@Model.ElementAt(i).Tweet.ElementAt(j).UserName) tweeted on @Model.ElementAt(i).Tweet.ElementAt(j).CreatedAt</span>
+                            </div>
+                            <div class="panel-body">
+                                @Model.ElementAt(i).Tweet.ElementAt(j++).Text
+                            </div><!-- /panel-body -->
+                        </div><!-- /panel panel-default -->
+                    </div><!-- /col-sm-5 -->
+
+                    <div class="col-sm-1">
+                        <img class="card img-responsive user-photo" src=@Model.ElementAt(i).Tweet.ElementAt(j).UserProfileImage>
+                    </div><!-- /col-sm-1 -->
+
+                    <div class="col-sm-5">
+                        <div class="card panel panel-default">
+                            <div class="top-card panel-heading">
+                                <strong>@Model.ElementAt(i).Tweet.ElementAt(j).ScreenName </strong> <span class="text-muted"> (@Model.ElementAt(i).Tweet.ElementAt(j).UserName) tweeted on @Model.ElementAt(i).Tweet.ElementAt(j).CreatedAt></span>
+                            </div>
+                            <div class="panel-body">
+                                @Model.ElementAt(i).Tweet.ElementAt(j)Text
+                            </div><!-- /panel-body -->
+                        </div><!-- /panel panel-default -->
+                    </div><!-- /col-sm-5 -->
+                </div><!-- /row -->
+                <br/>
+            }
+        </a>
+    </div>
+}

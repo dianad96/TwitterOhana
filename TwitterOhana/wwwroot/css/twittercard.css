@@ -13,7 +13,7 @@ body{
 
 .card{
     margin-left: 40px;
-    margin-top: 20px;
+    margin-top: 20px;   
     width: 350px;
     transform: translate(-50%, -50%);
     flex-wrap: wrap;

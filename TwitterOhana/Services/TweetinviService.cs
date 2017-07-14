@@ -1,45 +1,98 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Tweetinvi;
 using Tweetinvi.Core.Extensions;
 using Tweetinvi.Models;
 using Tweetinvi.Models.DTO.QueryDTO;
 using TwitterOhana.Controllers;
+using Tweet = Tweetinvi.Tweet;
+using User = Tweetinvi.User;
 
 namespace TwitterOhana.Services
 {
     public class TweetinviService : ITweetinviService
     {
+        private ITwitterCredentials _userCredentials = null;
+
+        public TweetinviService()
+        {
+            
+        }
+
+        public TweetinviService(ITwitterCredentials userCredentials = null)
+        {
+            _userCredentials = userCredentials;
+        }
+
         public string TwitterAuth()
         {
             var appCreds = new ConsumerCredentials(MyCredentials.ConsumerKey, MyCredentials.ConsumerSecret);
             IAuthenticationContext authenticationContext = AuthFlow.InitAuthentication(appCreds, MyCredentials.RedirectUrl);
-            string url = authenticationContext.AuthorizationURL;
-            return url;
+            return authenticationContext.AuthorizationURL;
         }
 
-        public IAuthenticatedUser ValideTwitterAuth(HttpRequest request)
+        public Models.User ValidateTwitterAuth(string verifierCode, string authorizationId)
         {
-            var userCreds = AuthFlow.CreateCredentialsFromVerifierCode(request.Query.ElementAt(2).Value, request.Query.ElementAt(0).Value);
-            MyCredentials.MyCreds = userCreds;
-            var user = User.GetAuthenticatedUser(userCreds);
-            MyCredentials.MyScreenName = user.ScreenName;
-            return user;
+            _userCredentials = AuthFlow.CreateCredentialsFromVerifierCode(verifierCode, authorizationId);
+            var user = User.GetAuthenticatedUser(_userCredentials);
+
+            var model = new Models.User();
+            model.Name = user.Name;
+            model.ScreenName = user.ScreenName;
+            model.FollowersCount = user.FollowersCount;
+            model.FriendsCount = user.FriendsCount;
+            model.StatusesCount = user.StatusesCount;
+            model.ProfileImage = user.ProfileImageUrl;
+            model.BackgroundImage = user.ProfileBannerURL;
+
+            return model;
         }
-        public string SendTweet(String newTweet)
+
+        public string SendTweet(string newTweet)
         {
-            var user = User.GetAuthenticatedUser(MyCredentials.MyCreds);
+            var user = User.GetAuthenticatedUser(_userCredentials);
             var tweet = user.PublishTweet(newTweet);
-            if (!tweet.Text.IsNullOrEmpty())
-                return "Sent!";
-            else
-                return "An error has occured!";
+            return !tweet.Text.IsNullOrEmpty() ? newTweet : "An error has occured!";
         }
 
-        public List<Models.Tweet> SearchTweet(String searchTweet)
+        public List<Models.Trend> GetTrends()
+        {
+            var modelTrend = new List<Models.Trend>();
+
+            var result = Auth.ExecuteOperationWithCredentials(_userCredentials, () =>
+            {
+                var trends = Trends.GetTrendsAt(44418);
+
+                var newTrends = trends.Trends;
+                IEnumerator<ITrend> e = newTrends.GetEnumerator();
+                int ok = 0;
+                while (e.MoveNext()&&ok<10)
+                {
+                    List<Models.Tweet> tweets = SearchTweet(e.Current.Name);
+
+                    modelTrend.Add(new Models.Trend()
+                    {
+                        Name = e.Current.Name,
+                        URL = e.Current.URL,
+                        Query = e.Current.Query,
+                        PromotedContent = e.Current.PromotedContent,
+                        TweetVolume = e.Current.TweetVolume,
+                        Tweet = tweets
+                     });
+                    ok++;
+                }
+                return modelTrend;
+            });
+            return result;
+        }
+
+        public List<Models.Tweet> SearchTweet(string searchTweet)
         {
             var matchingTweets = Search.SearchTweets(searchTweet);
             var model = new List<Models.Tweet>();
@@ -56,7 +109,7 @@ namespace TwitterOhana.Services
                     UserProfileImage = e.Current.CreatedBy.ProfileImageUrl
                 });
 
-                String value = e.Current.Text;
+                string value = e.Current.Text;
                 Console.WriteLine(value);
             }
             return model;
@@ -64,7 +117,7 @@ namespace TwitterOhana.Services
 
         public List<Models.Tweet> GetUserTweets()
         {
-            var user = User.GetAuthenticatedUser(MyCredentials.MyCreds);
+            var user = User.GetAuthenticatedUser(_userCredentials);
             var userTweets = user.GetHomeTimeline();
             var model = new List<Models.Tweet>();
 
@@ -89,10 +142,10 @@ namespace TwitterOhana.Services
         {
             var model = new List<Models.User>();
 
-            var result = Auth.ExecuteOperationWithCredentials(MyCredentials.MyCreds, () =>
+            var result = Auth.ExecuteOperationWithCredentials(_userCredentials, () =>
             {
                 // Get the first 250 followers of the user
-                var followers = User.GetFollowers(MyCredentials.MyScreenName);
+                var followers = User.GetFollowers("");
                 IEnumerator<IUser> e = followers.GetEnumerator();
                 while (e.MoveNext())
                 {
@@ -115,7 +168,7 @@ namespace TwitterOhana.Services
 
         public string DeleteTweet(long id)
         {
-            var success = Auth.ExecuteOperationWithCredentials(MyCredentials.MyCreds, () =>
+            var success = Auth.ExecuteOperationWithCredentials(_userCredentials, () =>
             {
                 ITweet toDelete = Tweet.GetTweet(id);
                 var tweet = toDelete.Destroy();

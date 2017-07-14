@@ -1,5 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Tweetinvi;
+using Tweetinvi.Models;
 using TwitterOhana.Services;
 
 namespace TwitterOhana.Controllers
@@ -20,67 +29,66 @@ namespace TwitterOhana.Controllers
             return new RedirectResult(_tweetinviService.TwitterAuth());
         }
 
-        public ActionResult ValidateTwitterAuth()
+        public async Task<ActionResult> ValidateTwitterAuth(string oauth_verifier, string authorization_id)
         {
-            var user = _tweetinviService.ValideTwitterAuth(Request);
-            ViewData["Name"] = user.Name;
-            ViewData["Number_of_followers"] = user.FollowersCount;
-            ViewData["Number_of_likes"] = user.FavouritesCount;
-            ViewData["Number_of_tweets"] = user.StatusesCount;
-          
-            return View();
+            var model = _tweetinviService.ValidateTwitterAuth(oauth_verifier, authorization_id);
+            return View(model);
         }
 
-        public string SendTweet(String newTweet)
+        public ViewResult GetTrends()
         {
-            var result = _tweetinviService.SendTweet(newTweet);
-            return result;
+            var model = _tweetinviService.GetTrends();
+            return View(model);
         }
 
-        public IActionResult SearchTweet(String searchTweet)
+        public string SendTweet(string newTweet)
+        {
+            return _tweetinviService.SendTweet(newTweet);
+        }
+
+        public ViewResult SearchTweet(string searchTweet)
         {
             var model = _tweetinviService.SearchTweet(searchTweet);
             return View(model);
         }
 
-        public IActionResult GetUserTweets()
+        public ViewResult GetUserTweets()
         {
             var model = _tweetinviService.GetUserTweets();
             return View(model);
         }
 
-        public String DeleteTweet(long id)
+        public string DeleteTweet(long id)
         {
-            var result = _tweetinviService.DeleteTweet(id);
-            return result;
+            return _tweetinviService.DeleteTweet(id);
         }
 
-        public IActionResult GetUserFollowers()
+        public ViewResult GetUserFollowers()
         {
             var model = _tweetinviService.GetUserFollowers();
             return View(model);
         }
 
-        public IActionResult Index()
+        public ViewResult Index()
         {
             return View();
         }
 
-        public IActionResult About()
+        public ViewResult About()
         {
             ViewData["Message"] = "Your application description page.";
 
             return View();
         }
 
-        public IActionResult Contact()
+        public ViewResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
 
             return View();
         }
 
-        public IActionResult Error()
+        public ViewResult Error()
         {
             return View();
         }

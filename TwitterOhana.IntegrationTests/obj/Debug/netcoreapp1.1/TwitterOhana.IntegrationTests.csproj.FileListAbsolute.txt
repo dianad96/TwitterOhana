@@ -1,0 +1,14 @@
+C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana.IntegrationTests\bin\Debug\netcoreapp1.1\TwitterOhana.IntegrationTests.deps.json
+C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana.IntegrationTests\bin\Debug\netcoreapp1.1\TwitterOhana.IntegrationTests.runtimeconfig.json
+C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana.IntegrationTests\bin\Debug\netcoreapp1.1\TwitterOhana.IntegrationTests.runtimeconfig.dev.json
+C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana.IntegrationTests\obj\Debug\netcoreapp1.1\TwitterOhana.IntegrationTests.csprojResolveAssemblyReference.cache
+C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana.IntegrationTests\obj\Debug\netcoreapp1.1\TwitterOhana.IntegrationTests.AssemblyInfo.cs
+C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana.IntegrationTests\bin\Debug\netcoreapp1.1\xunit.runner.visualstudio.dotnetcore.testadapter.dll
+C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana.IntegrationTests\bin\Debug\netcoreapp1.1\xunit.runner.utility.netstandard15.dll
+C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana.IntegrationTests\bin\Debug\netcoreapp1.1\xunit.runner.reporters.netstandard15.dll
+C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana.IntegrationTests\bin\Debug\netcoreapp1.1\TwitterOhana.IntegrationTests.dll
+C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana.IntegrationTests\bin\Debug\netcoreapp1.1\TwitterOhana.IntegrationTests.pdb
+C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana.IntegrationTests\bin\Debug\netcoreapp1.1\TwitterOhana.dll
+C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana.IntegrationTests\bin\Debug\netcoreapp1.1\TwitterOhana.pdb
+C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana.IntegrationTests\obj\Debug\netcoreapp1.1\TwitterOhana.IntegrationTests.dll
+C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana.IntegrationTests\obj\Debug\netcoreapp1.1\TwitterOhana.IntegrationTests.pdb

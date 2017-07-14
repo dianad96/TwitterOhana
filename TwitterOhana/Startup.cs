@@ -1,10 +1,12 @@
 ﻿using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using StructureMap;
+using StructureMap.Pipeline;
 using TwitterOhana.Services;
 
 namespace TwitterOhana
@@ -26,14 +28,11 @@ namespace TwitterOhana
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
-            services.AddMvc();
             // Add MVC services to the services container.
             services.AddMvc();
             services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
             services.AddSession();
 
-            ConfigureIoC(services);
             return ConfigureIoC(services);
 
         }
@@ -58,6 +57,15 @@ namespace TwitterOhana
 
             app.UseSession();
 
+            app.UseCookieAuthentication(new CookieAuthenticationOptions()
+            {
+                AuthenticationScheme = "CookieAuthentication",
+                LoginPath = new PathString("/"),
+                AccessDeniedPath = new PathString("/"),
+                AutomaticAuthenticate = true,
+                AutomaticChallenge = true
+            });
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -79,7 +87,7 @@ namespace TwitterOhana
                     _.WithDefaultConventions();
                 });
 
-                config.For(typeof(ITweetinviService)).Add(typeof(TweetinviService));
+                config.For(typeof(ITweetinviService), new SingletonLifecycle()).Add(typeof(TweetinviService));
 
                 //Populate the container using the service collection
                 config.Populate(services);
