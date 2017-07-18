@@ -1,16 +1,8 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Tweetinvi;
 using Tweetinvi.Core.Extensions;
 using Tweetinvi.Models;
-using Tweetinvi.Models.DTO.QueryDTO;
-using TwitterOhana.Controllers;
 using Tweet = Tweetinvi.Tweet;
 using User = Tweetinvi.User;
 
@@ -18,29 +10,23 @@ namespace TwitterOhana.Services
 {
     public class TweetinviService : ITweetinviService
     {
-        private ITwitterCredentials _userCredentials = null;
+        private readonly ICredentialService _credentialService;
 
-        public TweetinviService()
+        public TweetinviService(ICredentialService credentialService)
         {
-            
-        }
-
-        public TweetinviService(ITwitterCredentials userCredentials = null)
-        {
-            _userCredentials = userCredentials;
+            _credentialService = credentialService;
         }
 
         public string TwitterAuth()
         {
-            var appCreds = new ConsumerCredentials(MyCredentials.ConsumerKey, MyCredentials.ConsumerSecret);
-            IAuthenticationContext authenticationContext = AuthFlow.InitAuthentication(appCreds, MyCredentials.RedirectUrl);
-            return authenticationContext.AuthorizationURL;
+           var appCreds = new ConsumerCredentials(_credentialService.getConsumerKey(), _credentialService.getConsumerSecret());
+           IAuthenticationContext authenticationContext = AuthFlow.InitAuthentication(appCreds, _credentialService.getRedirectUrl());
+           return authenticationContext.AuthorizationURL;
         }
 
-        public Models.User ValidateTwitterAuth(string verifierCode, string authorizationId)
+        public Models.User ValidateTwitterAuth()
         {
-            _userCredentials = AuthFlow.CreateCredentialsFromVerifierCode(verifierCode, authorizationId);
-            var user = User.GetAuthenticatedUser(_userCredentials);
+            var user = User.GetAuthenticatedUser(_credentialService.GetUserCredentials());
 
             var model = new Models.User();
             model.Name = user.Name;
@@ -56,7 +42,7 @@ namespace TwitterOhana.Services
 
         public string SendTweet(string newTweet)
         {
-            var user = User.GetAuthenticatedUser(_userCredentials);
+            var user = User.GetAuthenticatedUser(_credentialService.GetUserCredentials());
             var tweet = user.PublishTweet(newTweet);
             return !tweet.Text.IsNullOrEmpty() ? newTweet : "An error has occured!";
         }
@@ -65,7 +51,7 @@ namespace TwitterOhana.Services
         {
             var modelTrend = new List<Models.Trend>();
 
-            var result = Auth.ExecuteOperationWithCredentials(_userCredentials, () =>
+            var result = Auth.ExecuteOperationWithCredentials(_credentialService.GetUserCredentials(), () =>
             {
                 var trends = Trends.GetTrendsAt(44418);
 
@@ -117,7 +103,7 @@ namespace TwitterOhana.Services
 
         public List<Models.Tweet> GetUserTweets()
         {
-            var user = User.GetAuthenticatedUser(_userCredentials);
+            var user = User.GetAuthenticatedUser(_credentialService.GetUserCredentials());
             var userTweets = user.GetHomeTimeline();
             var model = new List<Models.Tweet>();
 
@@ -141,11 +127,10 @@ namespace TwitterOhana.Services
         public List<Models.User> GetUserFollowers()
         {
             var model = new List<Models.User>();
-
-            var result = Auth.ExecuteOperationWithCredentials(_userCredentials, () =>
+            var result = Auth.ExecuteOperationWithCredentials(_credentialService.GetUserCredentials(), () =>
             {
                 // Get the first 250 followers of the user
-                var followers = User.GetFollowers("");
+                var followers = User.GetFollowers(User.GetAuthenticatedUser(_credentialService.GetUserCredentials()).ScreenName);
                 IEnumerator<IUser> e = followers.GetEnumerator();
                 while (e.MoveNext())
                 {
@@ -162,23 +147,25 @@ namespace TwitterOhana.Services
                 }
                 return model;
             });
-
             return result;
         }
 
         public string DeleteTweet(long id)
         {
-            var success = Auth.ExecuteOperationWithCredentials(_userCredentials, () =>
+            var success = Auth.ExecuteOperationWithCredentials(_credentialService.GetUserCredentials(), () =>
             {
                 ITweet toDelete = Tweet.GetTweet(id);
-                var tweet = toDelete.Destroy();
-                return tweet;
+                try
+                {
+                    toDelete.Destroy();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
             });
-
-            if (success)
-                return "deleted";
-            else
-                return "failed to delete";
+            return success ? "deleted" : "failed to delete";
         }
     }
 }

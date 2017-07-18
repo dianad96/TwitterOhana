@@ -17,7 +17,7 @@ namespace TwitterOhana
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
                 .AddEnvironmentVariables();
             Configuration = builder.Build();
@@ -28,11 +28,18 @@ namespace TwitterOhana
         // This method gets called by the runtime. Use this method to add services to the container.
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
+            // Adds services required for using options.
+            services.AddOptions();
+            // Register the IConfiguration instance which MyOptions binds against.
+            services.Configure<MyConfiguration>(Configuration.GetSection("MyCredentials"));
+
             // Add MVC services to the services container.
             services.AddMvc();
             services.AddDistributedMemoryCache(); // Adds a default in-memory implementation of IDistributedCache
             services.AddSession();
-
+            services.AddSingleton<IConfiguration>(Configuration);
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddSingleton<ICredentialService, CredentialService>();
             return ConfigureIoC(services);
 
         }
@@ -55,13 +62,11 @@ namespace TwitterOhana
 
             app.UseStaticFiles();
 
-            app.UseSession();
-
             app.UseCookieAuthentication(new CookieAuthenticationOptions()
             {
                 AuthenticationScheme = "CookieAuthentication",
-                LoginPath = new PathString("/"),
-                AccessDeniedPath = new PathString("/"),
+                LoginPath = new PathString("/Home/Login"), 
+                AccessDeniedPath = new PathString("/Home/Login"),
                 AutomaticAuthenticate = true,
                 AutomaticChallenge = true
             });

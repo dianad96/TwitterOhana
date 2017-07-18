@@ -1,14 +1,13 @@
-using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Http;
-using Tweetinvi.Models;
+using System.Security.Claims;
+using Microsoft.Extensions.Configuration;
 
 namespace TwitterOhana.Services
 {
     public interface ITweetinviService
     {
         string TwitterAuth();
-        Models.User ValidateTwitterAuth(string verifierCode, string authorizationId);
+        Models.User ValidateTwitterAuth();
         string SendTweet(string newTweet);
         List<Models.Tweet> SearchTweet(string searchTweet);
         List<Models.Tweet> GetUserTweets();

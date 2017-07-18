@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using Tweetinvi.Core.Web;
 using Tweetinvi.Models;
@@ -8,8 +9,9 @@ using Xunit;
 
 namespace TwitterOhana.IntegrationTests.Services
 {
-    public class Credentials : ITwitterCredentials
+    public class Credentials : ICredentialService
     {
+
         public Credentials()
         {
             AccessToken = "696780677870706688-6W9L7oMQ9HUF2n0lQAOFfmbMuuNQKOg";
@@ -18,46 +20,75 @@ namespace TwitterOhana.IntegrationTests.Services
             ConsumerSecret = "w3EG7V7g7GrtEm1LND1vNiKooc2zwTJRkM1XhPy2AmioRpX6kk";
         }
 
-        IConsumerCredentials IConsumerCredentials.Clone()
+        public string ConsumerKey { get; private set; }
+        public string AccessTokenSecret { get; private set; }
+        public string AccessToken { get; private set; }
+        public string ConsumerSecret { get; private set; }
+
+        public string getConsumerKey()
         {
-            return Clone();
+            return ConsumerKey;
         }
 
-        public bool AreSetupForUserAuthentication()
+        public string getConsumerSecret()
         {
-            return true;
+            return ConsumerSecret;
         }
 
-        public string AccessToken { get; set; }
-        public string AccessTokenSecret { get; set; }
-
-        public ITwitterCredentials Clone()
+        public string getRedirectUrl()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public bool AreSetupForApplicationAuthentication()
+        public ITwitterCredentials GetUserCredentials()
         {
-            return true;
+            return new TwitterCredentials(ConsumerKey,ConsumerSecret,AccessToken,AccessTokenSecret);
         }
-
-        public string ConsumerKey { get; set; }
-        public string ConsumerSecret { get; set; }
-        public string ApplicationOnlyBearerToken { get; set; }
-
     }
 
     public class TweetinviServiceTests
     {
         [Fact]
-        public void when_calling_valid_twitter_auth_we_should_return_a_user()
+        public void when_calling_send_tweet_we_should_return_a_tweet()
         {
             var tweet = $"tweet_{DateTime.Now.Ticks}";
             var subject = new TweetinviService(new Credentials());
-
             var returnedTweet = subject.SendTweet(tweet);
-
             Assert.Equal(tweet, returnedTweet);
         }
+
+        [Fact]
+        public void when_calling_delete_tweet_we_should_delete_the_tweet()
+        {
+            long id = 2131231;
+            var subject = new TweetinviService(new Credentials());
+            var returnedResponse = subject.DeleteTweet(id);
+            Assert.Equal(returnedResponse, "failed to delete");
+        }
+
+        [Fact]
+        public void when_calling_get_tweets_we_should_return_user_tweets()
+        {
+            var subject = new TweetinviService(new Credentials());
+            var returnedResponse = subject.GetUserTweets();
+            Assert.NotEqual(returnedResponse.Count, 0);
+        }
+
+        [Fact]
+        public void when_calling_get_followers_we_should_return_user_follwers()
+        {
+            var subject = new TweetinviService(new Credentials());
+            var returnedResponse = subject.GetUserFollowers();
+            Assert.NotEqual(returnedResponse.Count, 0);
+        }
+        /*
+        [Fact]
+        public void when_calling_search_tweet_we_should_return_list_of_tweets()
+        {
+            var tweet = "ohana";
+            var subject = new TweetinviService(new Credentials());
+            var returnedResponse = subject.SearchTweet(tweet);
+            Assert.NotEqual(returnedResponse.Count, 0);
+        }*/
     }
 }

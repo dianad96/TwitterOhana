@@ -1,25 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Text;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Internal;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.TestHost;
-using Newtonsoft.Json;
+using Microsoft.Extensions.Options;
 using NSubstitute;
-using NSubstitute.Core;
-using Tweetinvi.Controllers.Timeline;
-using Tweetinvi.Controllers.Tweet;
-using Tweetinvi.Controllers.User;
-using Tweetinvi.Credentials;
-using Tweetinvi.Logic;
-using Tweetinvi.Logic.DTO;
-using Tweetinvi.Models;
-using Tweetinvi.Models.DTO;
 using TwitterOhana.Controllers;
 using TwitterOhana.Services;
 using Xunit;
@@ -29,6 +11,7 @@ namespace TwitterOhana.Tests.Controllers
 {
     public class home_controller_tests
     {
+        
         [Fact]
         public void when_calling_send_tweet_it_should_return_the_sent_tweet()
         {
@@ -58,13 +41,13 @@ namespace TwitterOhana.Tests.Controllers
 
             Assert.Equal(outcome, expectedResultDelete);
         }
-
+        
         [Fact]
         public void when_calling_get_followers_we_should_return_the_followers()
         {
             var expectedResult = new List<User>()
             {
-                new User{ ScreenName = "John Smith"}
+                new User{ Name = "John Smith"}
             };
 
             var tweetinviService = Substitute.For<ITweetinviService>();
@@ -76,7 +59,7 @@ namespace TwitterOhana.Tests.Controllers
             Assert.Equal(outcome.Model, expectedResult);
 
         }
-
+        
         [Fact]
         public void when_calling_get_tweets_we_should_return_the_tweets()
         {
@@ -95,7 +78,7 @@ namespace TwitterOhana.Tests.Controllers
         }
 
         [Fact]
-        public void when_calling_search_tweets_we_should_return_the_tweets()
+        public void when_calling_tweets_we_should_return_the_tweets()
         {
             var newTweet = "ohana";
             var expectedResult = new List<Models.Tweet>()
@@ -111,7 +94,5 @@ namespace TwitterOhana.Tests.Controllers
 
             Assert.Equal(outcome.Model, expectedResult);
         }
-
-       
     }
 }
