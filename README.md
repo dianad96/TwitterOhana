@@ -18,7 +18,9 @@ Download Nuget packages:
 - [StructureMap.Microsoft.DependencyInjection](https://www.nuget.org/packages/StructureMap.Microsoft.DependencyInjection/)
 `Install-Package StructureMap.Microsoft.DependencyInjection`
 
-Get your Twitter App Credentials and change `MyCredentials.cs`
+- [HtmlSanitizer](https://github.com/mganss/HtmlSanitizer)
+
+Get your Twitter App Credentials and change `appsettings.json`
 
 ### Development 
 - [MVC](https://docs.microsoft.com/en-us/aspnet/core/mvc/overview) Model-View-Controller Pattern 
@@ -41,6 +43,8 @@ Using this pattern, user requests are routed to a Controller which is responsibl
 > Law 3: You are not allowed to wirte any more production code then it is sufficient to pass but currently failing test
 
 @ creds to Uncle Bob
+
+- XSS Prevention
 
 ### Testing Methodologies
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Ganss.XSS;
 using Tweetinvi;
 using Tweetinvi.Core.Extensions;
 using Tweetinvi.Models;
@@ -42,9 +43,11 @@ namespace TwitterOhana.Services
 
         public string SendTweet(string newTweet)
         {
+            var sanitizer = new HtmlSanitizer();
+            var sanitized = sanitizer.Sanitize(newTweet);
             var user = User.GetAuthenticatedUser(_credentialService.GetUserCredentials());
-            var tweet = user.PublishTweet(newTweet);
-            return !tweet.Text.IsNullOrEmpty() ? newTweet : "An error has occured!";
+            var tweet = user.PublishTweet(sanitized);
+            return !tweet.Text.IsNullOrEmpty() ? sanitized : "An error has occured!";
         }
 
         public List<Models.Trend> GetTrends()
@@ -80,7 +83,9 @@ namespace TwitterOhana.Services
 
         public List<Models.Tweet> SearchTweet(string searchTweet)
         {
-            var matchingTweets = Search.SearchTweets(searchTweet);
+            var sanitizer = new HtmlSanitizer();
+            var sanitized = sanitizer.Sanitize(searchTweet);
+            var matchingTweets = Search.SearchTweets(sanitized);
             var model = new List<Models.Tweet>();
 
             IEnumerator<ITweet> e = matchingTweets.GetEnumerator();

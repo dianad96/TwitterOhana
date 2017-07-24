@@ -2,6 +2,34 @@
   "version": 2,
   "targets": {
     ".NETCoreApp,Version=v1.1": {
+      "AngleSharp/0.9.9": {
+        "type": "package",
+        "dependencies": {
+          "System.Collections": "4.0.11",
+          "System.Diagnostics.Debug": "4.0.11",
+          "System.Dynamic.Runtime": "4.0.11",
+          "System.IO": "4.1.0",
+          "System.Linq": "4.1.0",
+          "System.Net.Primitives": "4.0.11",
+          "System.Net.Requests": "4.0.11",
+          "System.Reflection": "4.1.0",
+          "System.Reflection.Extensions": "4.0.1",
+          "System.Resources.ResourceManager": "4.0.1",
+          "System.Runtime": "4.1.0",
+          "System.Runtime.Extensions": "4.1.0",
+          "System.Text.Encoding": "4.0.11",
+          "System.Text.Encoding.Extensions": "4.0.11",
+          "System.Text.RegularExpressions": "4.1.0",
+          "System.Threading": "4.0.11",
+          "System.Threading.Tasks": "4.0.11"
+        },
+        "compile": {
+          "lib/netstandard1.0/AngleSharp.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.0/AngleSharp.dll": {}
+        }
+      },
       "Autofac/4.6.0": {
         "type": "package",
         "dependencies": {
@@ -34,6 +62,27 @@
         },
         "runtime": {
           "lib/netstandard1.5/CoreTweet.dll": {}
+        }
+      },
+      "HtmlSanitizer/3.4.156": {
+        "type": "package",
+        "dependencies": {
+          "AngleSharp": "[0.9.9]",
+          "System.Collections": "4.0.11",
+          "System.ComponentModel": "4.0.1",
+          "System.Diagnostics.Debug": "4.0.11",
+          "System.Globalization": "4.0.11",
+          "System.Linq": "4.1.0",
+          "System.Runtime": "4.1.0",
+          "System.Runtime.Extensions": "4.1.0",
+          "System.Text.RegularExpressions": "4.1.0",
+          "System.Threading": "4.0.11"
+        },
+        "compile": {
+          "lib/netstandard1.3/HtmlSanitizer.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/HtmlSanitizer.dll": {}
         }
       },
       "Libuv/1.9.1": {
@@ -3869,6 +3918,25 @@
     }
   },
   "libraries": {
+    "AngleSharp/0.9.9": {
+      "sha512": "z3h0p8u7p7QFSStWaC+u9cx7+IaRvMmLXqczx5WYW5V9t58kGQg3xMyb4iRI2mIEnePQq2pp2sQAadEl4GhmBg==",
+      "type": "package",
+      "path": "anglesharp/0.9.9",
+      "files": [
+        "anglesharp.0.9.9.nupkg.sha512",
+        "anglesharp.nuspec",
+        "lib/net40/AngleSharp.dll",
+        "lib/net40/AngleSharp.xml",
+        "lib/net45/AngleSharp.dll",
+        "lib/net45/AngleSharp.xml",
+        "lib/netstandard1.0/AngleSharp.dll",
+        "lib/netstandard1.0/AngleSharp.xml",
+        "lib/portable-windows8+net45+windowsphone8+wpa+monoandroid+monotouch/AngleSharp.dll",
+        "lib/portable-windows8+net45+windowsphone8+wpa+monoandroid+monotouch/AngleSharp.xml",
+        "lib/sl50/AngleSharp.dll",
+        "lib/sl50/AngleSharp.xml"
+      ]
+    },
     "Autofac/4.6.0": {
       "sha512": "Y+7B007u3cYpjU4THI9/i2pSyRnHjZtRJOrjGiHYPH5C32jJZ5njWjgLVnI6nmsYjUrYcWjXLfB13J3ztd37cw==",
       "type": "package",
@@ -3909,6 +3977,18 @@
         "lib/portable45-net45+win8+wpa81/CoreTweet.xml",
         "lib/xamarinios10/CoreTweet.dll",
         "lib/xamarinios10/CoreTweet.xml"
+      ]
+    },
+    "HtmlSanitizer/3.4.156": {
+      "sha512": "WVrr3WHjQVSgq1jYnGBHpHGPLpEX68JrVO5vHDYrruO9/7mZ7A5zbRvh4+q+WSWovdVbupS1msgqThqDwL1ytw==",
+      "type": "package",
+      "path": "htmlsanitizer/3.4.156",
+      "files": [
+        "htmlsanitizer.3.4.156.nupkg.sha512",
+        "htmlsanitizer.nuspec",
+        "lib/net40/HtmlSanitizer.dll",
+        "lib/net45/HtmlSanitizer.dll",
+        "lib/netstandard1.3/HtmlSanitizer.dll"
       ]
     },
     "Libuv/1.9.1": {
@@ -10155,6 +10235,7 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v1.1": [
       "CoreTweet >= 0.8.0.384",
+      "HtmlSanitizer >= 3.4.156",
       "Microsoft.ApplicationInsights.AspNetCore >= 2.0.0",
       "Microsoft.AspNetCore >= 1.1.2",
       "Microsoft.AspNetCore.Authentication.Cookies >= 1.1.2",
@@ -10244,6 +10325,10 @@
           "TweetinviAPI": {
             "target": "Package",
             "version": "2.0.0"
+          },
+          "HtmlSanitizer": {
+            "target": "Package",
+            "version": "3.4.156"
           }
         },
         "imports": [

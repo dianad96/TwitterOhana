@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="CoreTweet" Version="0.8.0.384" />
+    <PackageReference Include="HtmlSanitizer" Version="3.4.156" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.2" />

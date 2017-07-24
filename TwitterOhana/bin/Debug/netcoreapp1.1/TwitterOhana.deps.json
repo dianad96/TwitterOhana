@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v1.1",
-    "signature": "679df40fbe6b386ff4879d8a2f0a409829f50b79"
+    "signature": "29f94d21f5dbd300dea1f2c02e6d27fe5eb2034a"
   },
   "compilationOptions": {
     "defines": [
@@ -24,6 +24,7 @@
       "twitterohana/1.0.0": {
         "dependencies": {
           "CoreTweet": "0.8.0.384",
+          "HtmlSanitizer": "3.4.156",
           "Microsoft.ApplicationInsights.AspNetCore": "2.0.0",
           "Microsoft.AspNetCore": "1.1.2",
           "Microsoft.AspNetCore.Authentication.Cookies": "1.1.2",
@@ -42,6 +43,33 @@
         },
         "compile": {
           "TwitterOhana.dll": {}
+        }
+      },
+      "anglesharp/0.9.9": {
+        "dependencies": {
+          "System.Collections": "4.3.0",
+          "System.Diagnostics.Debug": "4.3.0",
+          "System.Dynamic.Runtime": "4.3.0",
+          "System.IO": "4.3.0",
+          "System.Linq": "4.3.0",
+          "System.Net.Primitives": "4.3.0",
+          "System.Net.Requests": "4.3.0",
+          "System.Reflection": "4.3.0",
+          "System.Reflection.Extensions": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Text.Encoding": "4.3.0",
+          "System.Text.Encoding.Extensions": "4.3.0",
+          "System.Text.RegularExpressions": "4.3.0",
+          "System.Threading": "4.3.0",
+          "System.Threading.Tasks": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.0/AngleSharp.dll": {}
+        },
+        "compile": {
+          "lib/netstandard1.0/AngleSharp.dll": {}
         }
       },
       "autofac/4.6.0": {
@@ -74,6 +102,26 @@
         },
         "compile": {
           "lib/netstandard1.5/CoreTweet.dll": {}
+        }
+      },
+      "htmlsanitizer/3.4.156": {
+        "dependencies": {
+          "AngleSharp": "0.9.9",
+          "System.Collections": "4.3.0",
+          "System.ComponentModel": "4.3.0",
+          "System.Diagnostics.Debug": "4.3.0",
+          "System.Globalization": "4.3.0",
+          "System.Linq": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Text.RegularExpressions": "4.3.0",
+          "System.Threading": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/HtmlSanitizer.dll": {}
+        },
+        "compile": {
+          "lib/netstandard1.3/HtmlSanitizer.dll": {}
         }
       },
       "microsoft.applicationinsights/2.2.0": {
@@ -3194,6 +3242,13 @@
       "serviceable": false,
       "sha512": ""
     },
+    "anglesharp/0.9.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-z3h0p8u7p7QFSStWaC+u9cx7+IaRvMmLXqczx5WYW5V9t58kGQg3xMyb4iRI2mIEnePQq2pp2sQAadEl4GhmBg==",
+      "path": "anglesharp/0.9.9",
+      "hashPath": "anglesharp.0.9.9.nupkg.sha512"
+    },
     "autofac/4.6.0": {
       "type": "package",
       "serviceable": true,
@@ -3207,6 +3262,13 @@
       "sha512": "sha512-BOBI4RX3yI0/jFrRBobPX33H/kr7ql1GR/hQtavNj4KmsV7aKY0qhB8WBWsoKa0L+WF5Ti0Y1d6OL5v4gXGZZA==",
       "path": "coretweet/0.8.0.384",
       "hashPath": "coretweet.0.8.0.384.nupkg.sha512"
+    },
+    "htmlsanitizer/3.4.156": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-WVrr3WHjQVSgq1jYnGBHpHGPLpEX68JrVO5vHDYrruO9/7mZ7A5zbRvh4+q+WSWovdVbupS1msgqThqDwL1ytw==",
+      "path": "htmlsanitizer/3.4.156",
+      "hashPath": "htmlsanitizer.3.4.156.nupkg.sha512"
     },
     "microsoft.applicationinsights/2.2.0": {
       "type": "package",

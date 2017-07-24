@@ -1,9 +1,9 @@
 C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana\bin\Debug\netcoreapp1.1\TwitterOhana.deps.json
 C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana\bin\Debug\netcoreapp1.1\TwitterOhana.runtimeconfig.json
 C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana\bin\Debug\netcoreapp1.1\TwitterOhana.runtimeconfig.dev.json
-C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana\obj\Debug\netcoreapp1.1\TwitterOhana.csprojResolveAssemblyReference.cache
-C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana\obj\Debug\netcoreapp1.1\TwitterOhana.AssemblyInfo.cs
 C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana\bin\Debug\netcoreapp1.1\TwitterOhana.dll
 C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana\bin\Debug\netcoreapp1.1\TwitterOhana.pdb
+C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana\obj\Debug\netcoreapp1.1\TwitterOhana.AssemblyInfo.cs
 C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana\obj\Debug\netcoreapp1.1\TwitterOhana.dll
 C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana\obj\Debug\netcoreapp1.1\TwitterOhana.pdb
+C:\Users\admin\documents\visual studio 2017\Projects\TwitterOhana\TwitterOhana\obj\Debug\netcoreapp1.1\TwitterOhana.csprojResolveAssemblyReference.cache
